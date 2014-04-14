@@ -14,13 +14,48 @@
 
     </properties>
 
+    <repositories>
+        <repository>
+            <id>terracotta-snapshots</id>
+            <url>http://www.terracotta.org/download/reflector/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>terracotta-releases</id>
+            <url>http://www.terracotta.org/download/reflector/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <com.tc.productkey.path>./terracotta-license.key</com.tc.productkey.path>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </testResource>
         </testResources>
@@ -30,6 +65,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
 
@@ -88,12 +124,11 @@
 
     <profiles>
         <profile>
-            <id>bm-4.0.5</id>
+            <id>bm-4.0.5-local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <ehcache.version>2.7.5</ehcache.version>
                 <!-- resource filters-->
                 <ehcache.tx.xml>ehcache-tx-local-bm405.xml</ehcache.tx.xml>
             </properties>
@@ -102,7 +137,7 @@
                 <dependency>
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
-                    <version>${ehcache.version}</version>
+                    <version>2.7.5</version>
                 </dependency>
                 <dependency>
                     <groupId>org.slf4j</groupId>
@@ -111,5 +146,37 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <profile>
+            <id>bm-3.7.5-distributed</id>
+            <properties>
+                <!-- resource filters-->
+                <ehcache.tx.xml>ehcache-tx-distributed-bm375.xml</ehcache.tx.xml>
+            </properties>
+            <dependencies>
+                <!-- ehcache -->
+                <dependency>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache-core-ee</artifactId>
+                    <version>2.6.6</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache-terracotta-ee</artifactId>
+                    <version>2.6.6</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.terracotta</groupId>
+                    <artifactId>terracotta-toolkit-1.6-runtime-ee</artifactId>
+                    <version>5.5.0</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>1.6.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
     </profiles>
 </project>

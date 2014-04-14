@@ -67,4 +67,16 @@ public class EhCacheXATest {
     }
 
 
+    @Test
+    public void testBulk() throws Exception {
+//        for (int i = 0; i < 1000000; i++) {
+////            Thread.sleep(10);
+//            cacheActionBean.put("key-" + i, "value-" + i);
+//        }
+//        Cache cache= cacheActionBean.getCache();
+//        cache.setNodeBulkLoadEnabled(true);
+//        cache.put(new Element("bulk-key-1","bulk-value-1"));
+//        cache.setNodeBulkLoadEnabled(false);
+    }
+
 }
