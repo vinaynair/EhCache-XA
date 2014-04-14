@@ -44,7 +44,7 @@ public class EhCacheXATest {
 
     @Test
     public void testXACacheWorksUnderJTA() {
-        performXACacheOperationWithAnnotation();
+        performXACacheOperationWithOUTAnnotation();
         Assert.assertNotNull(cacheActionBean.get("key-tx-1"));
         try {
             cacheActionBean.put("raiseException-key-tx-2", "value-2");
@@ -56,7 +56,7 @@ public class EhCacheXATest {
     }
 
 
-    private void performXACacheOperationWithAnnotation() {
+    private void performXACacheOperationWithOUTAnnotation() {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         // explicitly setting the transaction name is something that can only be done programmatically
         def.setName("CommitEhcachePut");
