@@ -11,8 +11,31 @@
         <ehcache.version>2.7.5</ehcache.version>
         <spring.version>3.2.8.RELEASE</spring.version>
         <atomikos.version>3.9.3</atomikos.version>
+        <!-- resource filters-->
+        <ehcache.tx.xml>ehcache-tx-local.xml</ehcache.tx.xml>
     </properties>
 
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+
+        </resources>
+    </build>
     <dependencies>
         <!-- Atomikos TM -->
         <dependency>

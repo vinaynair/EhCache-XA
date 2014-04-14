@@ -49,7 +49,7 @@
     <!-- EhCache manager-->
     <bean id="cacheManagerBean"
           class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
-          p:config-location="classpath:ehcache-tx.xml"/>
+          p:config-location="classpath:${ehcache.tx.xml}"/>
 
     <bean id="balanceCacheBean" class="net.sf.ehcache.Cache" factory-bean="cacheManagerBean" factory-method="getCache">
         <constructor-arg value="balance"/>
