@@ -2,9 +2,11 @@
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false" monitoring="autodetect">
 
+    <terracottaConfig url="localhost:9510"/>
     <cache name="balance"
            maxElementsInMemory="5000"
            eternal="true"
            transactionalMode="xa_strict">
+        <terracotta/>
     </cache>
 </ehcache>
