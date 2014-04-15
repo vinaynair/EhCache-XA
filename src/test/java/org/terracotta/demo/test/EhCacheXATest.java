@@ -1,8 +1,10 @@
 package org.terracotta.demo.test;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -67,16 +69,33 @@ public class EhCacheXATest {
     }
 
 
-    @Test
+    @Ignore
+    public void testThroughput() throws Exception {
+        for (int i = 0; i < 1000000; i++) {
+//            Thread.sleep(10);
+            cacheActionBean.put("key-" + i, "value-" + i);
+        }
+    }
+
+    @Ignore
     public void testBulk() throws Exception {
-//        for (int i = 0; i < 1000000; i++) {
-////            Thread.sleep(10);
-//            cacheActionBean.put("key-" + i, "value-" + i);
-//        }
-//        Cache cache= cacheActionBean.getCache();
-//        cache.setNodeBulkLoadEnabled(true);
-//        cache.put(new Element("bulk-key-1","bulk-value-1"));
-//        cache.setNodeBulkLoadEnabled(false);
+        Cache cache = cacheActionBean.getCache();
+        cache.setNodeBulkLoadEnabled(true);
+        cache.put(new Element("bulk-key-1", "bulk-value-1"));
+        cache.setNodeBulkLoadEnabled(false);
+    }
+
+    @Test
+    public void testXATimeout() throws Exception {
+        String key = "long-put-timesout-key-1";
+        try {
+            cacheActionBean.longPut(5000, key);
+        } catch (Exception e) {
+
+        }
+        Assert.assertNull("Timeout should have rollbacked the cache", cacheActionBean.get(key));
+        cacheActionBean.longPut(500, key);
+        Assert.assertNotNull("Timeout should NOT have triggered ", cacheActionBean.get(key));
     }
 
 }

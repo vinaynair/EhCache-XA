@@ -33,4 +33,13 @@ public class CacheAction {
         return cache.get(key);
 
     }
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, timeout = 3)
+    public void longPut(int sleepTime,String key) throws Exception {
+        cache.put(new Element(key, "long-value-timesouts-1"));
+        Thread.sleep(sleepTime);
+    }
+
+
 }
