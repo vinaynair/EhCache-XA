@@ -178,5 +178,26 @@
             </dependencies>
         </profile>
 
+        <profile>
+            <id>bm-3.7.5-local</id>
+            <properties>
+                <!-- resource filters-->
+                <ehcache.tx.xml>ehcache-tx-local-bm375.xml</ehcache.tx.xml>
+            </properties>
+            <dependencies>
+                <!-- ehcache -->
+                <dependency>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache-core</artifactId>
+                    <version>2.6.6</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>1.6.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
     </profiles>
 </project>
