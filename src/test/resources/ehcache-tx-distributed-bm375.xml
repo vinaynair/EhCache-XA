@@ -1,0 +1,17 @@
+<ehcache name="cacheManagerOne" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false" monitoring="autodetect">
+
+    <transactionManagerLookup
+            class="net.sf.ehcache.transaction.manager.DefaultTransactionManagerLookup"
+            properties="jndiName=java:appserver/TransactionManager" propertySeparator=";"/>
+
+    <terracottaConfig url="localhost:9510"/>
+    <cache name="balance"
+           maxElementsInMemory="5000"
+           eternal="true"
+           transactionalMode="xa">
+        <terracotta consistency="strong"/>
+
+    </cache>
+</ehcache>
